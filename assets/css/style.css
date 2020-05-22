@@ -1,0 +1,23 @@
+#todo-error{
+  color: red;
+  font-size: 2em;
+}
+
+
+#bg-image{
+height: 100vh;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.card{
+opacity: 90%;
+border: none;
+}
+.text-shadow{
+  text-shadow: 1px 1px black;
+}
+.space{
+  height: 60vh;
+}
