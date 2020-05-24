@@ -1,4 +1,5 @@
 import store from "../store.js";
+import Todo from "../models/todo.js";
 
 // @ts-ignore
 const todoApi = axios.create({
@@ -7,31 +8,60 @@ const todoApi = axios.create({
 });
 
 class TodoService {
+
+  constructor() {
+    this.getTodos()
+
+  }
   getTodos() {
-    console.log("Getting the Todo List");
-    todoApi.get();
-    //TODO Handle this response from the server
+    todoApi.get('')
+      .then(res => {
+        let todo = res.data.data.map(t => new Todo(t))
+        store.commit("todos", todo)
+      })
+      .catch(err => console.error(err))
   }
 
   addTodoAsync(todo) {
-    todoApi.post("", todo);
-    //TODO Handle this response from the server (hint: what data comes back, do you want this?)
+    todoApi.post("", todo)
+      .then(res => {
+        this.getTodos()
+      })
+      .catch(err => console.error(err))
   }
 
   toggleTodoStatusAsync(todoId) {
-    let todo = store.State.todos.find(todo => todo._id == todoId);
-    //TODO Make sure that you found a todo,
-    //		and if you did find one
-    //		change its completed status to whatever it is not (ex: false => true or true => false)
-
-    todoApi.put(todoId, todo);
-    //TODO do you care about this data? or should you go get something else?
+    let todo = store.State.todos.find(todo => todo.id == todoId);
+    console.log(todo)
+    if (todo) {
+      if (todo.completed == true) {
+        todo.completed = false
+      }
+      else if (todo.completed == false) {
+        todo.completed = true
+      }
+      todoApi.put(todoId, todo)
+        .then(res => {
+          console.log(res)
+          this.getTodos()
+        })
+    }
   }
 
+  //TODO Make sure that you found a todo,
+  //		and if you did find one
+  //		change its completed status to whatever it is not (ex: false => true or true => false)
+
+
+  //TODO do you care about this data? or should you go get something else
+
   removeTodoAsync(todoId) {
-    //TODO Work through this one on your own
-    //		what is the request type
-    //		once the response comes back, what do you need to insure happens?
+    todoApi.delete(todoId)
+      .then(res => {
+        console.log(res)
+        this.getTodos()
+      })
+      .catch(err => console.error(err))
   }
 }
 

@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/css/style.css">
+	<script src="https://kit.fontawesome.com/a8ffab3d3e.js" crossorigin="anonymous"></script>
 </head>
 
 <body id="bg-image" class="">
@@ -27,9 +28,17 @@
 		<div class="row d-flex align-content-end">
 			<div class="col-2 offset-10 text-light text-shadow">
 				<p class="">To Do</p>
-				<div id="todo-error"></div>
-				<form onsubmit=""></form>
+
+				<!-- <div id="todo-error"></div> -->
 				<div id="todos"></div>
+				<form onsubmit="app.todoController.addTodo(event)">
+					<div class="form-group mt-1">
+						<input type="text" required class="form-control" id="description" placeholder="New Item">
+					</div>
+					<button type="submit" class="btn btn-outline-success">
+						Submit</button>
+				</form>
+
 			</div>
 		</div>
 	</main>
