@@ -7,12 +7,18 @@ const todoApi = axios.create({
   timeout: 8000
 });
 
+let count = 0
+
 class TodoService {
 
   constructor() {
-    this.getTodos()
-
+    this.getTodos();
   }
+
+  get count() {
+    return count
+  }
+
   getTodos() {
     todoApi.get('')
       .then(res => {
@@ -32,20 +38,21 @@ class TodoService {
 
   toggleTodoStatusAsync(todoId) {
     let todo = store.State.todos.find(todo => todo.id == todoId);
-    console.log(todo)
     if (todo) {
       if (todo.completed == true) {
         todo.completed = false
+        count--
       }
       else if (todo.completed == false) {
         todo.completed = true
+        count++
       }
       todoApi.put(todoId, todo)
         .then(res => {
-          console.log(res)
           this.getTodos()
         })
     }
+    return count
   }
 
   //TODO Make sure that you found a todo,
@@ -56,9 +63,12 @@ class TodoService {
   //TODO do you care about this data? or should you go get something else
 
   removeTodoAsync(todoId) {
+    let todo = store.State.todos.find(todo => todo.id == todoId)
+    if (todo.completed == true) {
+      count--
+    }
     todoApi.delete(todoId)
       .then(res => {
-        console.log(res)
         this.getTodos()
       })
       .catch(err => console.error(err))

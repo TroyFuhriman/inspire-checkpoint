@@ -7,8 +7,9 @@ export default class Quote {
 
 
   get Template() {
-    return `<div>
-  <h4>${this.quote}</h4>
+    return `<div class="show">
+  <h4>${this.quote}</h4></div>
+  <div class = "hidden">
   <p class="text-start">- ${this.author}</p>
 </div>`
   }

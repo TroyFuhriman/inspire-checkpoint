@@ -1,5 +1,6 @@
 import WeatherService from "../services/weather-service.js";
 import store from "../store.js";
+import weatherService from "../services/weather-service.js";
 
 
 
@@ -14,7 +15,14 @@ export default class WeatherController {
     store.subscribe("weather", drawWeather);
     WeatherService.getWeather();
   }
-
+  changeC() {
+    let temp = store.State.weather.TemplateC
+    document.getElementById("weather").innerHTML = temp
+  }
+  changeF() {
+    let temp = store.State.weather.Template
+    document.getElementById("weather").innerHTML = temp
+  }
 
 
 

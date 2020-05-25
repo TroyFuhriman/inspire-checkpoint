@@ -5,15 +5,17 @@ import store from "../store.js";
 function _drawTodos() {
   let template = ''
   let todos = store.State.todos;
+  let num = (store.State.todos.length - TodoService.count)
   todos.forEach(t => {
     template += t.Template
   })
   document.getElementById("todos").innerHTML = template
+  document.getElementById("todonumber").innerText = "To Do: " + `${num}`
 }
 
 export default class TodoController {
   constructor() {
-    store.subscribe("todos", _drawTodos)
+    store.subscribe("todos", _drawTodos);
     TodoService.getTodos();
   }
 
@@ -34,7 +36,6 @@ export default class TodoController {
 
   //NOTE This method will pass an Id to your service for the TODO that will need to be deleted
   removeTodo(todoId) {
-    console.log(todoId)
     TodoService.removeTodoAsync(todoId);
   }
 }

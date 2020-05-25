@@ -9,7 +9,6 @@ function _drawQuote() {
   let quote = store.State.quote
   // @ts-ignore
   let template = quote.Template
-  console.log(quote)
   document.getElementById("quote").innerHTML = template
 }
 export default class QuoteController {

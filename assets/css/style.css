@@ -19,5 +19,30 @@ border: none;
   text-shadow: 1px 1px black;
 }
 .space{
-  height: 60vh;
+  height: 20vh;
+}
+
+body{
+  font-family: 'Merriweather', serif;
+  overflow: hidden;
+}
+.overflow{
+overflow-y: scroll;
+overflow-x: hidden;
+max-height: 20vh;
+
+}
+.action{
+  cursor: pointer;
+}
+.space1{
+  height: 30vh;
+}
+
+.hidden{
+  display: none;
+}
+
+.show:hover +.hidden{
+  display: block;
 }
